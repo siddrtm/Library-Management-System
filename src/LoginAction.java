@@ -1,0 +1,160 @@
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Map;
+
+import org.apache.struts2.dispatcher.SessionMap;
+import org.apache.struts2.interceptor.SessionAware;
+
+import com.mysql.jdbc.StringUtils;
+import com.opensymphony.xwork2.ActionSupport;
+
+public class LoginAction extends ActionSupport implements SessionAware{
+
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String username;
+   private String password;
+   private String name;
+   private String type;
+
+   private SessionMap<String,Object> sessionMap;  
+   
+   @SuppressWarnings("rawtypes")
+@Override  
+   public void setSession(Map<String, Object> map) {  
+       sessionMap= (SessionMap) map;  
+   }
+
+ public void validate()
+ {
+	 if(StringUtils.isNullOrEmpty(getUsername()))
+     {
+         addFieldError("username", "UserId can't be blank");
+     }
+     if(StringUtils.isNullOrEmpty(getPassword()))
+     {
+         addFieldError("password","password can't be blank");
+     }      
+	 
+ }
+   
+   
+public String execute() {
+      String ret = ERROR;
+      Connection conn = null;
+      
+
+      try {
+         String URL = "jdbc:mysql://localhost:3306/sepm";
+         Class.forName("com.mysql.jdbc.Driver");
+         conn = DriverManager.getConnection(URL, "root", "");
+         String sql = "SELECT name,type,ID FROM customer WHERE";
+         sql+=" username = ? AND password = ?";
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ps.setString(1, username);
+         ps.setString(2, password);
+         ResultSet rs = ps.executeQuery();
+
+         
+         String tempUserId = null;
+         
+         while (rs.next()) {
+            name = rs.getString(1);
+            type = rs.getString(2);
+            ret = type;
+            sessionMap.put("type", type);
+            sessionMap.put("login", "true");
+            System.out.println("AAAAAAA");
+           
+            tempUserId =rs.getString(3);
+            sessionMap.put("userinfo", database.getUserInfo(rs.getString(3)));
+            System.out.println("BBBBBB");
+         }
+         
+         
+// 		
+// 		String query = "Select * from checkout where  ID =\"" + tempUserId + "\"" ;
+// 		Resultset result;
+// 		System.out.println(query);
+// 		try {
+// 			
+// 			if(database.query(query)){
+// 				addFieldError("id","id removed Successfully");
+// 			} else {
+// 				addFieldError("id","id invalid");
+// 			}
+// 		} catch (ClassNotFoundException | SQLException e) {
+// 			// TODO Auto-generated catch block
+// 			
+// 			e.printStackTrace();
+// 			System.out.println("false from RemoveCustomer");
+// 			addFieldError("id","id cannot be removed");
+// 			return "false";
+// 		}
+         
+         
+         
+      } catch (Exception e) {
+         ret = ERROR;
+         
+         
+      } finally {
+         if (conn != null) {
+            try {
+               conn.close();
+            } catch (Exception e) {
+            }
+         }
+      }
+      
+      return ret;
+   }
+
+public String logout(){  
+	    if(sessionMap!=null){  
+	        sessionMap.invalidate();  
+	    }  
+	    return "success";  
+	}  
+   public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+  
+   public String getPassword() {
+      return password;
+   }
+
+   public void setPassword(String password) {
+      this.password = password;
+   }
+
+   public String getName() {
+      return name;
+   }
+
+   public void setName(String name) {
+      this.name = name;
+   }
+   
+   public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+}

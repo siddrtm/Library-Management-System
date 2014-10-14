@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+ 
+<struts>
+  
+   <constant name="struts.enable.DynamicMethodInvocation"
+        value="false" />
+    <constant name="struts.devMode" value="false" />
+    <constant name="struts.custom.i18n.resources"
+        value="ApplicationResources" />
+    
+    <package name="default" extends="struts-default" namespace="/"> 
+        
+        <interceptors>
+			<interceptor class="LoginInterceptor" name="loginInterceptor">
+			</interceptor>
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="loginInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+
+		<global-results>
+			<result name="login">Login.jsp</result>
+		</global-results>
+        
+        <action name="login" class="LoginAction">
+            
+            <result name="error">Login.jsp</result>
+            <result name="UG">UserWelcome.jsp</result>
+            <result name="PG" >UserWelcome.jsp</result>
+            <result name="Faculty">UserWelcome.jsp</result>
+            <result name="Librarian">UserWelcome.jsp</result>
+            <result name="staff">UserWelcome.jsp</result>
+        </action>
+        
+        <action name="AddCustomer" class="Customer" method="AddCustomer">  
+			<result name="true">UserWelcome.jsp</result>  
+			<result name="false">AddCustomer.jsp</result>
+			<result name="input">AddCustomer.jsp</result>
+		</action>
+        <action name="ViewCustomer" class="Customer" method="ViewCustomer">  
+			<result name="true">UserWelcome.jsp</result>  
+			<result name="false">ViewCustomerForum.jsp</result>
+			<result name="input">ViewCustomerForum.jsp</result>
+			<result name="Requested">ViewCustomer.jsp</result>
+		</action>
+        <action name="logout" class="LoginAction" method="logout">  
+			<result name="success">LoginError.jsp</result>  
+		</action>  
+		
+        <action name="/">  
+			<result>Login.jsp</result>  
+		</action>
+        
+        <action name="searchform" class="dummy">  
+			<result name="success">SearchForm.jsp</result>  
+		</action>
+		
+        <action name="search_res" class="SearchBook">  
+			<result name="success">SearchResult.jsp</result> 
+			<result name="NoResult">NoResults.jsp</result>   
+		</action>
+        
+        
+         <action name="viewBook*" class="viewBook">
+             <param name="ISBN">{1}</param>
+			<result name="success">ViewBook.jsp</result> 
+			<result name="NoResult">NoResults.jsp</result>  
+		</action> 
+        
+    </package>
+</struts>

@@ -1,0 +1,141 @@
+import java.util.Map;
+
+import org.apache.struts2.dispatcher.SessionMap;
+import org.apache.struts2.interceptor.SessionAware;
+
+import com.opensymphony.xwork2.ActionSupport;
+
+
+public class AddBook extends ActionSupport implements SessionAware{
+
+	/**
+	 * 
+	 */
+	private String b_id;
+	private String title;
+	private String year;
+	private String publication;
+	private String shelfNo;
+	private String numCopy;
+	private String subject;
+	private String language;
+	private String author1;
+	private String author2;
+	private String author3;
+	
+	
+	
+	private static final long serialVersionUID = 1L;
+	private SessionMap<String,Object> sessionMap;
+	
+	@Override
+	public void setSession(Map<String, Object> map) {
+
+		sessionMap= (SessionMap) map; 
+		
+	}
+	
+	
+	
+
+	public String getB_id() {
+		return b_id;
+	}
+
+	public void setB_id(String b_id) {
+		this.b_id = b_id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public String getPublication() {
+		return publication;
+	}
+
+	public void setPublication(String publication) {
+		this.publication = publication;
+	}
+
+	public String getShelfNo() {
+		return shelfNo;
+	}
+
+	public void setShelfNo(String shelfNo) {
+		this.shelfNo = shelfNo;
+	}
+
+	public String getNumCopy() {
+		return numCopy;
+	}
+
+	public void setNumCopy(String numCopy) {
+		this.numCopy = numCopy;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public String getAuthor1() {
+		return author1;
+	}
+
+	public void setAuthor1(String author1) {
+		this.author1 = author1;
+	}
+
+	public String getAuthor2() {
+		return author2;
+	}
+
+	public void setAuthor2(String author2) {
+		this.author2 = author2;
+	}
+
+	public String getAuthor3() {
+		return author3;
+	}
+
+	public void setAuthor3(String author3) {
+		this.author3 = author3;
+	}
+
+	public SessionMap<String, Object> getSessionMap() {
+		return sessionMap;
+	}
+
+	public void setSessionMap(SessionMap<String, Object> sessionMap) {
+		this.sessionMap = sessionMap;
+	}
+	
+	
+	
+	
+
+}

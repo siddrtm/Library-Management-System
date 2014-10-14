@@ -1,0 +1,99 @@
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import package1.Book;
+
+import com.opensymphony.xwork2.ActionSupport;
+
+
+
+
+public class viewBook extends ActionSupport {
+	/**
+	 * 
+	 */
+	ResultSet rs = null;
+	public ResultSet getRs() {
+		return rs;
+	}
+
+	public void setRs(ResultSet rs) {
+		this.rs = rs;
+	}
+
+	String ISBN;
+	//private static final long serialVersionUID = 1L;
+
+	public String execute(){
+		
+		//HttpServlet request = 
+		//System.out.println("id= "+ id);
+	
+		int size=0;
+		System.out.println("id= "+ ISBN);
+		
+		
+		 String sql1="SELECT title,cust_ID,book_ID,comment FROM reviews inner join book on book.b_id=reviews.book_ID "
+   		 	  + "WHERE reviews.book_ID=" + ISBN;
+		
+		
+	         
+			try {
+				rs = database.query(sql1);
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	         
+	        
+	         
+	         try {
+	             rs.last();
+	             size = rs.getRow();
+	             rs.beforeFirst();
+	         }
+	         catch(Exception ex) {
+	             ex.printStackTrace();
+	         }
+	         //System.out.println(size);
+
+	      
+
+	         if(size==0){
+	        	 System.out.println("No results Found");
+	        	 return "NoResult";
+	         }
+		
+		
+		
+		
+		
+		return "success";
+
+		
+}
+	
+	public String execute1(){
+		//HttpServlet request = 
+		//System.out.println("id= "+ id);
+		
+			System.out.println("id= ");
+			return "success";
+	
+			
+	}
+
+	public String getISBN() {
+		return ISBN;
+	}
+
+	public void setISBN(String iSBN) {
+		ISBN = iSBN;
+	}
+
+
+}

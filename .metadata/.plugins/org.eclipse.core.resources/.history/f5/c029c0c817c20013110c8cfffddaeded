@@ -1,0 +1,396 @@
+import java.sql.SQLException;
+import java.util.Map;
+
+import org.apache.struts2.dispatcher.SessionMap;
+import org.apache.struts2.interceptor.SessionAware;
+
+import com.opensymphony.xwork2.ActionSupport;
+
+
+public class AddBook extends ActionSupport implements SessionAware{
+
+	/**
+	 * 
+	 */
+	private String b_id;
+	private String title;
+	private String year;
+	private String publication;
+	private String shelfNo;
+	private String edition;
+	private String noOfPages;
+	
+	private String subject;
+	private String language;
+	private String author1;
+	private String author2;
+	private String author3;
+	private String tag1;
+	private String tag2;
+	private String tag3;
+	private String tag4;
+	private String tag5;
+	private String tag6;
+	
+	
+	
+	private static final long serialVersionUID = 1L;
+	private SessionMap<String,Object> sessionMap;
+	
+	@Override
+	public void setSession(Map<String, Object> map) {
+
+		sessionMap= (SessionMap) map; 
+		
+	}
+	
+	public String execute(){
+		
+		
+		if(getB_id().isEmpty()){
+			addFieldError("b_id","Book ID is empty");
+			return "input";
+		}if(getTitle().isEmpty()){
+			addFieldError("title","Title is empty");
+			return "input";
+		}if(getYear().isEmpty()){
+			addFieldError("year","Year is empty");
+			return "input";
+		}if(getPublication().isEmpty()){
+			addFieldError("publication","Publication is empty");
+			return "input";
+		}if(getShelfNo().isEmpty()){
+			addFieldError("shelfNo","Shelf No is empty");
+			return "input";
+		}if(getSubject().isEmpty()){
+			addFieldError("subject","Subject is empty");
+			return "input";
+		}if(getLanguage().isEmpty()){
+			addFieldError("language","Language is empty");
+			return "input";
+		}if(getEdition().isEmpty()){
+			addFieldError("edition","Edition is empty");
+			return "input";
+		}if(getNoOfPages().isEmpty()){
+			addFieldError("noOfPages","No of pages is empty");
+			return "input";
+		}
+		
+		if(getAuthor1().isEmpty() && getAuthor2().isEmpty() && getAuthor3().isEmpty()){
+			addFieldError("author1","No author filled");
+			return "input";
+		}if(getTag1().isEmpty() && getTag2().isEmpty() && getTag3().isEmpty() && getTag4().isEmpty() && getTag5().isEmpty() && getTag6().isEmpty()){
+			addFieldError("tag1","no tags filled");
+			return "input";
+		}
+		
+		String query = "INSERT INTO book (b_id,title,year,publication,shelf_no,subject,language,edition,no_of_pages) VALUES ('" + getB_id()+ "','"+ getTitle() +"',"+ getYear() +",'"+ getPublication() +"',"+ getShelfNo() +",'"+ getSubject() +"','"+ getLanguage() +"',"+getEdition()+"," + getNoOfPages() +")";
+		System.out.println(query);
+		try {
+			database.update(query);
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("error in add book update");
+			addFieldError("b_id","Could not update book");
+			return "input";
+			
+		}
+		if(!getAuthor1().isEmpty()){
+			query = "INSERT INTO author (b_id,name) VALUES ('"+ getB_id() +"','"+ getAuthor1() +"')";
+			
+			try {
+				database.update(query);
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("error in add book update author 1");
+				addFieldError("b_id","Could not add book error in author 1 update");
+				return "input";
+				
+			}
+		}
+		if(!getAuthor2().isEmpty()){
+			query = "INSERT INTO author (b_id,name) VALUES ('"+ getB_id() +"','"+ getAuthor2() +"')";
+			
+			try {
+				database.update(query);
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("error in add book update author 2");
+				addFieldError("b_id","Could not add book error in author 2 update");
+				return "input";
+				
+			}
+		}
+		if(!getAuthor3().isEmpty()){
+			query = "INSERT INTO author (b_id,name) VALUES ('"+ getB_id() +"','"+ getAuthor3() +"')";
+			
+			try {
+				database.update(query);
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("error in add book update author 3");
+				addFieldError("b_id","Could not add book error in author 3 update");
+				return "input";
+				
+			}
+		}
+		
+		
+		
+		
+		if(!getTag1().isEmpty()){
+			query = "INSERT INTO tags (b_id,tag) VALUES ('"+ getB_id() +"','"+ getTag1() +"')";
+			
+			try {
+				database.update(query);
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("error in add book update tag 1");
+				addFieldError("b_id","Could not add book error in tag 1 update");
+				return "input";
+				
+			}
+		}
+		if(!getTag2().isEmpty()){
+			query = "INSERT INTO tags (b_id,tag) VALUES ('"+ getB_id() +"','"+ getTag2() +"')";
+			
+			try {
+				database.update(query);
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("error in add book update tag 2");
+				addFieldError("b_id","Could not add book error in tag 2 update");
+				return "input";
+				
+			}
+		}
+		if(!getTag3().isEmpty()){
+			query = "INSERT INTO tags (b_id,tag) VALUES ('"+ getB_id() +"','"+ getTag3() +"')";
+			
+			try {
+				database.update(query);
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("error in add book update tag 3");
+				addFieldError("b_id","Could not add book error in tag 3 update");
+				return "input";
+				
+			}
+		}
+		if(!getTag4().isEmpty()){
+			query = "INSERT INTO tags (b_id,tag) VALUES ('"+ getB_id() +"','"+ getTag4() +"')";
+			
+			try {
+				database.update(query);
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("error in add book update tag 4");
+				addFieldError("b_id","Could not add book error in tag 4 update");
+				return "input";
+				
+			}
+		}
+		if(!getTag5().isEmpty()){
+			query = "INSERT INTO tags (b_id,tag) VALUES ('"+ getB_id() +"','"+ getTag5() +"')";
+			
+			try {
+				database.update(query);
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("error in add book update tag 5");
+				addFieldError("b_id","Could not add book error in tag 5 update");
+				return "input";
+				
+			}
+		}
+		if(!getTag6().isEmpty()){
+			query = "INSERT INTO tags (b_id,tag) VALUES ('"+ getB_id() +"','"+ getTag6() +"')";
+			
+			try {
+				database.update(query);
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("error in add book update tag 6");
+				addFieldError("b_id","Could not add book error in tag 6 update");
+				return "input";
+				
+			}
+		}
+		
+		
+		addFieldError("b_id","book added successfully");
+		
+		return "input";
+		
+		
+	}
+	
+
+	public String getB_id() {
+		return b_id;
+	}
+
+	public void setB_id(String b_id) {
+		this.b_id = b_id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public String getPublication() {
+		return publication;
+	}
+
+	public void setPublication(String publication) {
+		this.publication = publication;
+	}
+
+	public String getShelfNo() {
+		return shelfNo;
+	}
+
+	public void setShelfNo(String shelfNo) {
+		this.shelfNo = shelfNo;
+	}
+
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public String getAuthor1() {
+		return author1;
+	}
+
+	public void setAuthor1(String author1) {
+		this.author1 = author1;
+	}
+
+	public String getAuthor2() {
+		return author2;
+	}
+
+	public void setAuthor2(String author2) {
+		this.author2 = author2;
+	}
+
+	public String getAuthor3() {
+		return author3;
+	}
+
+	public void setAuthor3(String author3) {
+		this.author3 = author3;
+	}
+
+	public SessionMap<String, Object> getSessionMap() {
+		return sessionMap;
+	}
+
+	public void setSessionMap(SessionMap<String, Object> sessionMap) {
+		this.sessionMap = sessionMap;
+	}
+
+	public String getTag1() {
+		return tag1;
+	}
+
+	public void setTag1(String tag1) {
+		this.tag1 = tag1;
+	}
+
+	public String getTag2() {
+		return tag2;
+	}
+
+	public void setTag2(String tag2) {
+		this.tag2 = tag2;
+	}
+
+	public String getTag3() {
+		return tag3;
+	}
+
+	public void setTag3(String tag3) {
+		this.tag3 = tag3;
+	}
+
+	public String getTag4() {
+		return tag4;
+	}
+
+	public void setTag4(String tag4) {
+		this.tag4 = tag4;
+	}
+
+	public String getTag5() {
+		return tag5;
+	}
+
+	public void setTag5(String tag5) {
+		this.tag5 = tag5;
+	}
+
+	public String getTag6() {
+		return tag6;
+	}
+
+	public void setTag6(String tag6) {
+		this.tag6 = tag6;
+	}
+
+	public String getEdition() {
+		return edition;
+	}
+
+	public void setEdition(String edition) {
+		this.edition = edition;
+	}
+
+	public String getNoOfPages() {
+		return noOfPages;
+	}
+
+	public void setNoOfPages(String noOfPages) {
+		this.noOfPages = noOfPages;
+	}
+	
+	
+	
+	
+
+}
